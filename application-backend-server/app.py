@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request # type: ignore
 import time, requests, os
-from jose import jwt
+from jose import jwt # type: ignore
+import json
 
 ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identity-server:8080/realms/master")
 AUDIENCE = os.getenv("OIDC_AUDIENCE", "myapp")
@@ -16,6 +17,25 @@ def get_jwks():
     return JWKS
 
 app = Flask(__name__)
+
+def load_students():
+    # Tìm file students.json trong cùng thư mục
+    try:
+        with open('students.json', 'r') as f:
+            data = json.load(f)
+            return data.get("students", []) 
+    except FileNotFoundError:
+        return []
+
+# Endpoint: /student
+@app.route('/student', methods=['GET'])
+def get_students():
+    students = load_students()
+    return jsonify({
+        "status": "success",
+        "count": len(students),
+        "data": students
+    })
 
 @app.get("/hello")
 def hello(): return jsonify(message="Hello from App Server!")

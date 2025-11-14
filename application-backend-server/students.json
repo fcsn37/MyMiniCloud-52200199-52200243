@@ -1,0 +1,14 @@
+{
+    "students": [
+        {
+            "id": "52200243",
+            "name": "Ho Bao Ngan",
+            "major": "Cloud Computing"
+        },
+        {
+            "id": "52200199",
+            "name": "Nguyen Thanh Phat",
+            "major": "Information System"
+        }
+    ]
+}
