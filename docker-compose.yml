@@ -8,6 +8,12 @@ services:
     container_name: web-frontend-server
     networks: [cloud-net]
     ports: [ "8080:80"]
+  web-frontend-server2:
+    build: ./web-frontend-server2
+    image: hotensv/web2:dev 
+    container_name: web-frontend-server2
+    networks: [cloud-net]
+    ports: [ "8080:80"]
   application-backend-server:
     build: ./application-backend-server
     image: hotensv/app:dev
