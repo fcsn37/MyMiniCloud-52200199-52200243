@@ -1,0 +1,16 @@
+server {
+    listen 80;
+    server_name web-server.cloud.local;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Cấu hình Location chung
+    location / { 
+        try_files $uri $uri/ =404;
+    }
+    
+    location /blog/ {
+        try_files $uri $uri/ =404; 
+        autoindex off;
+    }
+}

@@ -1,21 +1,561 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <title>Bài 1 — Giới thiệu dự án</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body { font-family: Arial, sans-serif; max-width:800px; margin:2rem auto; }
-    img { max-width:100%; height:auto; border-radius:8px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phần 3 – Monitoring & Tổng kết | MyMiniCloud</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #86868b;
+            margin-bottom: 40px;
+        }
+
+        .breadcrumb a {
+            color: #0071e3;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: #0051ba;
+        }
+
+        .breadcrumb span {
+            margin: 0 8px;
+        }
+
+        .header-section {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .part-label {
+            font-size: 17px;
+            font-weight: 600;
+            color: #0071e3;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            font-weight: 400;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            background: #fbfbfd;
+            border-radius: 18px;
+            padding: 48px;
+            margin-bottom: 30px;
+            border: 1px solid #e8e8ed;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            letter-spacing: -0.01em;
+        }
+
+        .servers-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .servers-table thead {
+            background: linear-gradient(135deg, #0071e3 0%, #0051ba 100%);
+            color: white;
+        }
+
+        .servers-table th {
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.02em;
+        }
+
+        .servers-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e8e8ed;
+            font-size: 15px;
+        }
+
+        .servers-table tbody tr {
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .servers-table tbody tr:hover {
+            background: #f5f5f7;
+            transform: scale(1.01);
+        }
+
+        .servers-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .server-number {
+            font-weight: 700;
+            color: #0071e3;
+            font-size: 18px;
+        }
+
+        .server-name {
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 113, 227, 0.1);
+            color: #0071e3;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid #e8e8ed;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #0071e3;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            color: #86868b;
+            font-weight: 500;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            font-size: 17px;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e8e8ed;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: #30d158;
+            font-weight: 700;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d4edda 0%, #e8f5e9 100%);
+            border-left: 4px solid #30d158;
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .success-box h3 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 12px;
+        }
+
+        .success-box p {
+            font-size: 17px;
+            color: #86868b;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #d2d2d7;
+            gap: 20px;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            background: #0071e3;
+            color: white;
+            text-decoration: none;
+            border-radius: 980px;
+            font-weight: 500;
+            font-size: 17px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #0051ba;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 113, 227, 0.3);
+        }
+
+        .nav-button.secondary {
+            background: #f5f5f7;
+            color: #1d1d1f;
+        }
+
+        .nav-button.secondary:hover {
+            background: #e8e8ed;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-section {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #d2d2d7;
+        }
+
+        .footer-section p {
+            font-size: 17px;
+            color: #86868b;
+            margin-bottom: 8px;
+        }
+
+        .footer-section .names {
+            font-weight: 600;
+            color: #1d1d1f;
+            font-size: 19px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .servers-table {
+                font-size: 14px;
+            }
+
+            .servers-table th,
+            .servers-table td {
+                padding: 12px 16px;
+            }
+
+            .content-section {
+                padding: 32px 24px;
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #000000;
+                color: #f5f5f7;
+            }
+
+            .content-section {
+                background: #1d1d1f;
+                border-color: #424245;
+            }
+
+            .servers-table tbody tr {
+                background: #1d1d1f;
+            }
+
+            .servers-table tbody tr:hover {
+                background: #2d2d2f;
+            }
+
+            .servers-table td {
+                border-bottom-color: #424245;
+            }
+
+            .server-name {
+                color: #f5f5f7;
+            }
+
+            .stat-card,
+            .feature-list li {
+                background: #2d2d2f;
+                border-color: #424245;
+            }
+
+            .nav-button.secondary {
+                background: #1d1d1f;
+                color: #f5f5f7;
+            }
+
+            .nav-button.secondary:hover {
+                background: #2d2d2f;
+            }
+
+            .navigation,
+            .footer-section {
+                border-top-color: #424245;
+            }
+
+            .success-box {
+                background: linear-gradient(135deg, #1a3a2a 0%, #1d1d1f 100%);
+            }
+
+            .success-box h3,
+            .footer-section .names {
+                color: #f5f5f7;
+            }
+        }
+    </style>
 </head>
 <body>
-  <a href="/">← Về trang chủ</a>
-  <h1>Bài 1 — Giới thiệu dự án</h1>
-  <p><em>Ngày đăng: 2025-11-13</em></p>
-  <img src="/blog/images/blog3.jpg" alt="Ảnh minh họa bài 1">
-  <p>Nội dung bài viết: ... (viết ngắn 2-3 đoạn mô tả mục tiêu của dự án, stack sử dụng, các thành phần dịch vụ, v.v.)</p>
-  <h3>Ghi chú</h3>
-  <p>Thêm nội dung mô tả cách triển khai, các lệnh Docker dùng để khởi động, và bằng chứng (screenshot) để nộp báo cáo.</p>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="/">Trang chủ</a>
+            <span>›</span>
+            <span>Phần 3</span>
+        </div>
+
+        <div class="header-section">
+            <div class="part-label">Phần 3 - Tổng kết</div>
+            <h1>Monitoring & Infrastructure</h1>
+            <p class="subtitle">
+                Hoàn thiện hệ thống MyMiniCloud với DNS, Prometheus monitoring, 
+                Grafana dashboard và Nginx reverse proxy
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2>Thống kê hệ thống</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">Container Services</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Docker Network</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Exposed Ports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Yêu cầu mở rộng</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Tổng quan 9 dịch vụ MyMiniCloud</h2>
+            <table class="servers-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Loại Server</th>
+                        <th>Vai trò & Chức năng</th>
+                        <th>Công nghệ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="server-number">1</span></td>
+                        <td><span class="server-name">Web Frontend Server</span></td>
+                        <td>Cung cấp giao diện web tĩnh, blog cá nhân</td>
+                        <td><span class="tech-badge">nginx:stable</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="server-number">2</span></td>
+                        <td><span class="server-name">Application Server</span></td>
+                        <td>Xử lý logic, REST API, kết nối database</td>
+                        <td><span class="tech-badge">Flask + Python</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="server-number">3</span></td>
+                        <td><span class="server-name">Database Server</span></td>
+                        <td>Lưu trữ dữ liệu quan hệ, CRUD operations</td>
+                        <td><span class="tech-badge">MariaDB 11</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="server-number">4</span></td>
+                        <td><span class="server-name">Authentication Server</span></td>
+                        <td>Quản lý người dùng, phát hành JWT token</td>
+                        <td><span class="tech-badge">Keycloak 24</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="server-number">5</span></td>
+                        <td><span class="server-name">Object Storage Server</span></td>
+                        <td>Lưu trữ file, bucket management (S3-like)</td>
+                        <td><span class="tech-badge">MinIO</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="server-number">6</span></td>
+                        <td><span class="server-name">DNS Server</span></td>
+                        <td>Phân giải tên miền nội bộ cloud.local</td>
+                        <td><span class="tech-badge">Bind9 9.18</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="server-number">7</span></td>
+                        <td><span class="server-name">Monitoring Server</span></td>
+                        <td>Thu thập metrics CPU, RAM, Network</td>
+                        <td><span class="tech-badge">Prometheus</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="server-number">8</span></td>
+                        <td><span class="server-name">Visualization Server</span></td>
+                        <td>Dashboard hiển thị metrics và logs</td>
+                        <td><span class="tech-badge">Grafana</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="server-number">9</span></td>
+                        <td><span class="server-name">Reverse Proxy</span></td>
+                        <td>Định tuyến, cân bằng tải, API gateway</td>
+                        <td><span class="tech-badge">Nginx Proxy</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h2>Các dịch vụ Infrastructure</h2>
+            <ul class="feature-list">
+                <li><strong>Internal DNS (Bind9)</strong> - Phân giải tên miền cloud.local cho các container</li>
+                <li><strong>Prometheus Monitoring</strong> - Scrape metrics từ Node Exporter, lưu trữ time-series data</li>
+                <li><strong>Grafana Dashboard</strong> - Visualize CPU, RAM, Network với biểu đồ real-time</li>
+                <li><strong>Nginx Reverse Proxy</strong> - Route / → web, /api/ → app, /auth/ → keycloak</li>
+                <li><strong>MinIO Object Storage</strong> - Bucket demo với file uploads, S3-compatible API</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Yêu cầu mở rộng đã hoàn thành</h2>
+            <ul class="feature-list">
+                <li>Blog cá nhân với 3 bài viết HTML có ảnh minh họa</li>
+                <li>API /student trả danh sách sinh viên từ JSON</li>
+                <li>Database studentdb với bảng students và 3 bản ghi</li>
+                <li>Keycloak realm mới với 2 users (sv01, sv02)</li>
+                <li>MinIO bucket profile-pics với avatar upload</li>
+                <li>DNS records mới cho app-backend.cloud.local</li>
+                <li>Prometheus scrape target cho web-frontend-server</li>
+                <li>Grafana dashboard "System Health" với 3 biểu đồ</li>
+                <li>Proxy route /student/ trỏ đến backend API</li>
+                <li>Load balancer với Round Robin giữa 2 web servers</li>
+            </ul>
+        </div>
+
+        <div class="success-box">
+            <h3>🎉 Hệ thống hoàn thành</h3>
+            <p>9/9 container hoạt động ổn định trên Docker network cloud-net<br>
+            Đáp ứng đầy đủ yêu cầu cơ bản và 10 yêu cầu mở rộng</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Kết luận & Đánh giá</h2>
+            <p style="font-size: 17px; line-height: 1.8; color: #1d1d1f; margin-bottom: 20px;">
+                Hệ thống MyMiniCloud đã triển khai thành công kiến trúc cloud thu nhỏ với đầy đủ 9 thành phần cốt lõi. 
+                Các container giao tiếp thông qua Docker network cloud-net, tạo thành một hệ sinh thái microservices hoàn chỉnh.
+            </p>
+            <p style="font-size: 17px; line-height: 1.8; color: #86868b;">
+                Dự án giúp sinh viên nắm vững các khái niệm cloud computing: containerization, service discovery, 
+                monitoring, authentication, object storage, và reverse proxy - tất cả đều là nền tảng của các cloud platform hiện đại.
+            </p>
+        </div>
+
+        <div class="navigation">
+            <a href="Post2.html" class="nav-button secondary">
+                ← Phần 2: Backend & Database
+            </a>
+            <a href="/" class="nav-button">
+                Về trang chủ
+            </a>
+        </div>
+
+        <div class="footer-section">
+            <p class="names">Hồ Bảo Ngân • Nguyễn Thành Phát</p>
+            <p>Đồ án Cloud Computing • Tháng 12/2025</p>
+        </div>
+    </div>
 </body>
 </html>

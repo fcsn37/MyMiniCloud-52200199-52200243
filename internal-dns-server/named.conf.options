@@ -1,1 +1,20 @@
-options { directory "/var/cache/bind"; allow-query { any; }; recursion yes; };
+options {
+    directory "/var/cache/bind";
+    
+    forwarders {
+        8.8.8.8;
+        1.1.1.1;
+    };
+    
+    recursion yes;
+    allow-query { any; };
+    
+    // Thêm allow-recursion để cho phép truy vấn đệ quy từ mạng nội bộ
+    allow-recursion { any; };
+    
+    // Tắt dnssec-validation để tránh lỗi với các zone không được ký
+    dnssec-validation no; 
+
+    listen-on { any; };
+    listen-on-v6 { none; };
+};

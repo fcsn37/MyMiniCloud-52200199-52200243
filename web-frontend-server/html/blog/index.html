@@ -1,38 +1,299 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <title>MyMiniCloud</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 2rem auto; line-height: 1.6; background: #fafafa; color: #333; }
-    header { text-align: center; }
-    ul { list-style: none; padding: 0; }
-    li { margin: 1rem 0; }
-    a { text-decoration: none; color: #0066cc; }
-    a:hover { text-decoration: underline; }
-    .card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo MyMiniCloud – Hồ Bảo Ngân & Nguyễn Thành Phát</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1d1d1f 0%, #86868b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .post-card {
+            background: #fbfbfd;
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .post-thumbnail {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .post-content {
+            padding: 32px 28px;
+        }
+
+        .post-number {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0071e3;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .post-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .post-description {
+            font-size: 17px;
+            color: #86868b;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .post-link {
+            display: inline-flex;
+            align-items: center;
+            font-size: 17px;
+            color: #0071e3;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .post-link:hover {
+            color: #0051ba;
+        }
+
+        .post-link::after {
+            content: '→';
+            margin-left: 8px;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .post-card:hover .post-link::after {
+            transform: translateX(4px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-top: 1px solid #d2d2d7;
+        }
+
+        .footer-info {
+            font-size: 17px;
+            color: #86868b;
+            line-height: 1.6;
+        }
+
+        .footer-names {
+            font-weight: 500;
+            color: #1d1d1f;
+            margin-bottom: 8px;
+        }
+
+        .system-info {
+            background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+            border-radius: 18px;
+            padding: 40px;
+            margin-bottom: 60px;
+            border: 1px solid #e8e8ed;
+        }
+
+        .system-info h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1d1d1f;
+        }
+
+        .system-info p {
+            font-size: 17px;
+            color: #86868b;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #0071e3;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+
+            .subtitle {
+                font-size: 19px;
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .post-thumbnail {
+                height: 200px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            header {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #000000;
+                color: #f5f5f7;
+            }
+
+            .post-card {
+                background: #1d1d1f;
+            }
+
+            .system-info {
+                background: linear-gradient(135deg, #1d1d1f 0%, #000000 100%);
+                border-color: #424245;
+            }
+
+            .system-info h2,
+            .footer-names {
+                color: #f5f5f7;
+            }
+
+            footer {
+                border-top-color: #424245;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>MyMiniCloud _ Blog cá nhân</h1>
-    <p>Chào mừng bạn đến với trang blog của dự án MiniCloud.</p>
-    <hr>
-  </header>
+    <div class="container">
+        <header>
+            <h1>MyMiniCloud</h1>
+            <p class="subtitle">
+                Xây dựng hệ thống Cloud thu nhỏ với 9 dịch vụ container<br>
+                mô phỏng hạ tầng Cloud Platform hiện đại
+            </p>
+        </header>
 
-  <main>
-    <h2>Danh sách bài viết</h2>
-    <ul>
-      <li class="card"><a href="./Post1.html">Bài 1 — Giới thiệu dự án</a></li>
-      <li class="card"><a href="./Post2.html">Bài 2 — Hướng dẫn cài đặt</a></li>
-      <li class="card"><a href="./Post3.html">Bài 3 — Kết luận & Hướng phát triển</a></li>
-    </ul>
-    
-  </main>
+        <div class="system-info">
+            <h2>Tổng quan hệ thống:</h2>
+            <p>
+                MyMiniCloud triển khai <span class="highlight">9 container</span> hoạt động đồng bộ trên Docker network <span class="highlight">cloud-net</span>, 
+                bao gồm Web Server, Application Server, Database, Authentication, Object Storage, DNS, Monitoring (Prometheus & Grafana), 
+                và Reverse Proxy. Hệ thống đáp ứng đầy đủ yêu cầu đề bài và các yêu cầu mở rộng.
+            </p>
+        </div>
 
-  <footer style="text-align:center; margin-top:2rem; color:#777;">
-    © 2025 
-  </footer>
+        <div class="posts-grid">
+            <a href="Post1.html" class="post-card">
+                <img src="assets/image01.jpg" alt="Web Frontend Server" class="post-thumbnail">
+                <div class="post-content">
+                    <div class="post-number">Phần 1</div>
+                    <h2 class="post-title">Web Frontend Server</h2>
+                    <p class="post-description">
+                        Triển khai Nginx static site hosting với blog cá nhân. 
+                        Bao gồm trang chủ, blog với 3 bài viết và cấu hình routing.
+                    </p>
+                    <span class="post-link">Xem chi tiết</span>
+                </div>
+            </a>
+
+            <a href="Post2.html" class="post-card">
+                <img src="assets/image02.jpg" alt="Backend Services" class="post-thumbnail">
+                <div class="post-content">
+                    <div class="post-number">Phần 2</div>
+                    <h2 class="post-title">Backend & Database</h2>
+                    <p class="post-description">
+                        Flask API Server, MariaDB, Keycloak Authentication, 
+                        và MinIO Object Storage. Xây dựng kiến trúc microservices hoàn chỉnh.
+                    </p>
+                    <span class="post-link">Xem chi tiết</span>
+                </div>
+            </a>
+
+            <a href="Post3.html" class="post-card">
+                <img src="assets/image03.jpg" alt="Infrastructure Services" class="post-thumbnail">
+                <div class="post-content">
+                    <div class="post-number">Phần 3</div>
+                    <h2 class="post-title">Monitoring & Proxy</h2>
+                    <p class="post-description">
+                        DNS Server, Prometheus metrics, Grafana dashboard, 
+                        và Nginx Reverse Proxy. Hoàn thiện hạ tầng cloud infrastructure.
+                    </p>
+                    <span class="post-link">Xem chi tiết</span>
+                </div>
+            </a>
+        </div>
+
+        <footer>
+            <div class="footer-info">
+                <p class="footer-names">Hồ Bảo Ngân • Nguyễn Thành Phát</p>
+                <p>Đồ án Cloud Computing • Tháng 12/2025</p>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
